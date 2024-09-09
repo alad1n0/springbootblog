@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Адмінка - Користувачі</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Spring Boot Blog Project</h1>
+    <hr />
+
+    <h1 class="mb-4 text-center">Users</h1>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Ім'я</th>
+            <th>Прізвище</th>
+            <th>Дії</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${accounts}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td>
+                <a th:href="@{/admin/users/{id}/edit(id=${user.id})}" class="btn btn-primary btn-sm me-2">Редагувати</a>
+                <a th:href="@{/admin/users/{id}/delete(id=${user.id})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Ви впевнені, що хочете видалити користувача?');">Видалити</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-cplmPxl9OuXUSakzjq6UV7iQV9n0kMB6cDahkZ30JYgMPE0b/n71Z6hBcd5Np6aV" crossorigin="anonymous"></script>
+</body>
+</html>

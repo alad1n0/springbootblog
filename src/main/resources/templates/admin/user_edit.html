@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редагування користувача</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Spring Boot Blog Project</h1>
+    <hr />
+
+    <h1 class="mb-4">Edit user</h1>
+
+    <form th:action="@{/admin/users/{id}/edit(id=${account.id})}" method="post">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" id="email" name="email" th:value="${account.email}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="firstName" class="form-label">Ім'я:</label>
+            <input type="text" id="firstName" name="firstName" th:value="${account.firstName}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Прізвище:</label>
+            <input type="text" id="lastName" name="lastName" th:value="${account.lastName}" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-cplmPxl9OuXUSakzjq6UV7iQV9n0kMB6cDahkZ30JYgMPE0b/n71Z6hBcd5Np6aV" crossorigin="anonymous"></script>
+</body>
+</html>

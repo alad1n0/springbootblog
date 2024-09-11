@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog :: About</title>
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/vendor.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="/js/plugins.js"></script>
+    <script src="/js/modernizr.js"></script>
+    <script src="/js/pace.min.js"></script>
+
+</head>
+<body id="top">
+    <div class="s-pageheader">
+        <header class="header">
+            <div class="header__content row">
+                <div class="header__logo">
+                    <a class="logo" th:href="@{/}">
+                        <img src="/images/food.svg" alt="Homepage">
+                    </a>
+                </div>
+                <ul class="header__social">
+                    <li>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                    </li>
+                </ul>
+
+                <div class="header__login-wrapper" sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/login}" class="header__users-login">Login</a>
+                    <a th:href="@{/register}" class="header__users-register">Register</a>
+                </div>
+
+                <div class="header__account">
+                    <div class="header__user-menu" sec:authorize="isAuthenticated()">
+                        <div class="header__users">
+                            <svg sec:authorize="isAuthenticated()" xmlns="http://www.w3.org/2000/svg" style="margin-top: -5px" width="23" height="23" viewBox="0 0 40 40" fill="none">
+                                <g clip-path="url(#clip0_2933_10946)">
+                                    <path d="M20 20C21.9778 20 23.9112 19.4135 25.5557 18.3147C27.2002 17.2159 28.4819 15.6541 29.2388 13.8268C29.9957 11.9996 30.1937 9.98891 29.8079 8.0491C29.422 6.10929 28.4696 4.32746 27.0711 2.92894C25.6725 1.53041 23.8907 0.578004 21.9509 0.192152C20.0111 -0.193701 18.0004 0.00433286 16.1732 0.761209C14.3459 1.51809 12.7841 2.79981 11.6853 4.4443C10.5865 6.08879 10 8.02219 10 10C10.0026 12.6514 11.0571 15.1934 12.9319 17.0682C14.8066 18.9429 17.3486 19.9974 20 20ZM20 3.33334C21.3185 3.33334 22.6075 3.72433 23.7038 4.45687C24.8001 5.18942 25.6546 6.23061 26.1592 7.44878C26.6638 8.66696 26.7958 10.0074 26.5386 11.3006C26.2813 12.5938 25.6464 13.7817 24.714 14.7141C23.7817 15.6464 22.5938 16.2813 21.3006 16.5386C20.0074 16.7958 18.667 16.6638 17.4488 16.1592C16.2306 15.6546 15.1894 14.8001 14.4569 13.7038C13.7243 12.6075 13.3333 11.3185 13.3333 10C13.3333 8.2319 14.0357 6.5362 15.286 5.28596C16.5362 4.03572 18.2319 3.33334 20 3.33334ZM20 23.3333C16.0231 23.3378 12.2104 24.9195 9.39827 27.7316C6.58618 30.5437 5.00441 34.3564 5 38.3333C5 38.7754 5.17559 39.1993 5.48816 39.5119C5.80072 39.8244 6.22464 40 6.66667 40C7.10869 40 7.53262 39.8244 7.84518 39.5119C8.15774 39.1993 8.33333 38.7754 8.33333 38.3333C8.33333 35.2391 9.5625 32.2717 11.7504 30.0838C13.9383 27.8958 16.9058 26.6667 20 26.6667C23.0942 26.6667 26.0617 27.8958 28.2496 30.0838C30.4375 32.2717 31.6667 35.2391 31.6667 38.3333C31.6667 38.7754 31.8423 39.1993 32.1548 39.5119C32.4674 39.8244 32.8913 40 33.3333 40C33.7754 40 34.1993 39.8244 34.5118 39.5119C34.8244 39.1993 35 38.7754 35 38.3333C34.9956 34.3564 33.4138 30.5437 30.6017 27.7316C27.7896 24.9195 23.9769 23.3378 20 23.3333Z" fill="white"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_2933_10946">
+                                        <rect width="40" height="40" fill="white"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <p class="header_user_name">My profile</p>
+                            <svg class="profile__icon" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 40 40" fill="none">
+                                <path d="M32.1365 13.5423C31.966 13.3705 31.7633 13.2341 31.5398 13.141C31.3164 13.0479 31.0768 13 30.8348 13C30.5928 13 30.3531 13.0479 30.1297 13.141C29.9063 13.2341 29.7036 13.3705 29.5331 13.5423L21.1365 21.939C20.966 22.1108 20.7633 22.2472 20.5398 22.3403C20.3164 22.4333 20.0768 22.4813 19.8348 22.4813C19.5928 22.4813 19.3531 22.4333 19.1297 22.3403C18.9063 22.2472 18.7036 22.1108 18.5331 21.939L10.1365 13.5423C9.96602 13.3705 9.76325 13.2341 9.53984 13.141C9.31644 13.0479 9.07681 13 8.83479 13C8.59276 13 8.35314 13.0479 8.12973 13.141C7.90632 13.2341 7.70355 13.3705 7.53312 13.5423C7.19166 13.8858 7 14.3505 7 14.8348C7 15.3191 7.19166 15.7838 7.53312 16.1273L15.9481 24.5423C16.9794 25.5723 18.3773 26.1508 19.8348 26.1508C21.2923 26.1508 22.6902 25.5723 23.7215 24.5423L32.1365 16.1273C32.4779 15.7838 32.6696 15.3191 32.6696 14.8348C32.6696 14.3505 32.4779 13.8858 32.1365 13.5423Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div class="dropdown-content">
+                            <a href="/profile">Profile</a>
+                            <a th:href="@{/logout}">Logout</a>
+                        </div>
+                    </div>
+                    <a class="header__search-trigger" href="#"></a>
+                </div>
+
+                <a class="header__toggle-menu" href="#" title="Menu"><span>Menu</span></a>
+
+                <nav class="header__nav-wrap">
+
+                    <h2 class="header__nav-heading h6">Site Navigation</h2>
+
+                    <ul class="header__nav">
+                        <li><a th:href="@{/}" title="">Home</a></li>
+                        <li><a th:href="@{/posts}" title="">Posts</a></li>
+                        <li class="has-children">
+                            <a href="#" title="">Categories</a>
+                            <ul class="sub-menu">
+                                <li th:each="category : ${categories}">
+                                    <a href="#" th:text="${category.title}"></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="current"><a th:href="@{/aboute}" title="">About</a></li>
+                        <li><a href="#" title="">Contact</a></li>
+                        <li sec:authorize="!isAuthenticated()" class="li_login"><a th:href="@{/login}" title="">Login</a></li>
+                        <li sec:authorize="!isAuthenticated()" class="li_tegister"><a th:href="@{/register}" title="">Register</a></li>
+                        <li class="header__search-trigger"></li>
+                    </ul>
+
+                    <a href="#" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+                </nav>
+
+                <div class="header__search">
+                    <form role="search" method="get" class="header__search-form" action="#">
+                        <label>
+                            <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="Search for:" autocomplete="off">
+                        </label>
+                        <input type="submit" class="search-submit" value="Search">
+                    </form>
+                    <a href="#" title="Close Search" class="header__overlay-close">Close</a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <section style="background-color: #f2f2f2" class="s-content s-content--narrow">
+        <div class="row">
+            <div class="s-content__header col-full">
+                <h1 class="s-content__header-title">
+                    Learn More About Us.
+                </h1>
+            </div>
+
+            <div class="s-content__media col-full">
+                <div class="s-content__post-thumb">
+                    <img src="/images/thumbs/about/about-1000.jpg"
+                         srcset="/images/thumbs/about/about-2000.jpg 2000w,
+                                 /images/thumbs/about/about-1000.jpg 1000w,
+                                 /images/thumbs/about/about-500.jpg 500w"
+                         sizes="(max-width: 2000px) 100vw, 2000px" alt="" >
+                </div>
+            </div>
+
+            <div class="col-full s-content__main">
+                <p class="lead">Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint.</p>
+                <p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
+                <p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco.</p>
+                <div class="row block-1-2 block-tab-full">
+                    <div class="col-block">
+                        <h3 class="quarter-top-margin">Who We Are.</h3>
+                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
+                    </div>
+                    <div class="col-block">
+                        <h3 class="quarter-top-margin">Our Mission.</h3>
+                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
+                    </div>
+                    <div class="col-block">
+                        <h3 class="quarter-top-margin">Our Vision.</h3>
+                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
+                    </div>
+                    <div class="col-block">
+                        <h3 class="quarter-top-margin">Our Values.</h3>
+                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="s-extra">
+
+        <div class="row top">
+            <div class="col-eight md-six tab-full popular">
+                <h3>Popular Posts</h3>
+                <div class="block-1-2 block-m-full popular__posts">
+                    <article class="col-block popular__post" th:each="post : ${topPosts}">
+                        <a href="#" class="popular__thumb">
+                            <img th:if="${post.imageBase64}" th:src="'data:image/jpeg;base64,' + ${post.imageBase64}" alt="">
+                        </a>
+                        <h5><a href="#">Visiting Theme Parks Improves Your Health.</a></h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#" th:text="${post.account.lastName} + ' ' + ${post.account.firstName}"></a></span>
+                            <span class="popular__date"><span>on</span> <a href="#" th:text="${post.formattedDate}"></a></span>
+                        </section>
+                    </article>
+                </div>
+            </div>
+
+            <div class="col-four md-six tab-full about">
+                <h3>About Philosophy</h3>
+                <p>
+                    Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Pellentesque in ipsum id orci porta dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
+                </p>
+                <ul class="about__social">
+                    <li>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row bottom tags-wrap">
+            <h3>Categories</h3>
+            <div class="col-full tags">
+                <div class="tagcloud" th:each="category : ${categories}">
+                    <a th:text="${category.title}" href="#"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="s-footer">
+        <div class="s-footer__main">
+            <div class="row">
+                <div class="col-two md-four mob-full s-footer__sitelinks">
+                    <h4>Quick Links</h4>
+                    <ul class="s-footer__linklist">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-two md-four mob-full s-footer__archives">
+                    <h4>Categories</h4>
+                    <ul class="s-footer__linklist">
+                        <li th:each="category : ${categories}"><a href="#" th:text="${category.title}"></a></li>
+                    </ul>
+                </div>
+
+                <div class="col-two md-four mob-full s-footer__social">
+                    <h4>Social</h4>
+                    <ul class="s-footer__linklist">
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Pinterest</a></li>
+                        <li><a href="#">Google+</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-five md-full end s-footer__subscribe">
+                    <h4>Our Newsletter</h4>
+                    <p>Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim exercitationem ipsam. Culpa consequatur occaecati.</p>
+                    <div class="subscribe-form">
+                        <form id="mc-form" class="group" novalidate="novalidate">
+                            <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
+                            <input type="submit" name="subscribe" value="Send">
+                            <label for="mc-email" class="subscribe-message"></label>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="s-footer__bottom">
+            <div class="row">
+                <div class="col-full">
+                    <div class="s-footer__copyright">
+                        <span>© Copyright Philosophy 2024</span>
+                        <span>Site Template by <a href="#">alad1n0</a></span>
+                    </div>
+
+                    <div class="go-top">
+                        <a style="padding-right: 15px;" th:href="@{/posts/new}">Create post
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 5px;">
+                                <path d="M8.125 2.5C8.125 2.15482 7.84518 1.875 7.5 1.875C7.15482 1.875 6.875 2.15482 6.875 2.5V6.875H2.5C2.15482 6.875 1.875 7.15482 1.875 7.5C1.875 7.84518 2.15482 8.125 2.5 8.125H6.875V12.5C6.875 12.8452 7.15482 13.125 7.5 13.125C7.84518 13.125 8.125 12.8452 8.125 12.5V8.125H12.5C12.8452 8.125 13.125 7.84518 13.125 7.5C13.125 7.15482 12.8452 6.875 12.5 6.875H8.125V2.5Z" fill="white"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/plugins.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

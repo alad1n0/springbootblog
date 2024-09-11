@@ -24,11 +24,12 @@ public class PostController {
 
     private final PostService postService;
     private final CategoryService categoryService;
+    private final RatingService ratingService;
     private final AccountService accountService;
     private final CommentService commentService;
 
     @GetMapping("/posts/{id}")
-    public String getPost(@PathVariable Long id, Model model) {
+    public String getPost(@PathVariable Long id, Model model, Principal principal) {
         Optional<Post> optionalPost = postService.getByIdWithRatings(id);
 
         if (optionalPost.isPresent()) {
@@ -40,10 +41,22 @@ public class PostController {
                 averageRating = ratings.stream().mapToInt(Rating::getValue).average().orElse(0);
             }
 
+            long likeCount = ratingService.getLikeCountByPostId(id);
+
             model.addAttribute("post", post);
             model.addAttribute("averageRating", averageRating);
             model.addAttribute("comments", commentService.getByPostId(id));
-            model.addAttribute("newComment", new Comment());
+            model.addAttribute("likeCount", likeCount);
+
+            if (principal != null) {
+                Account account = accountService.findOneByEmail(principal.getName())
+                        .orElseThrow(() -> new IllegalArgumentException("Account not found"));
+                Rating existingRating = ratingService.findByPostAndAccount(post, account);
+                model.addAttribute("userLiked", existingRating != null);
+            } else {
+                model.addAttribute("userLiked", false);
+            }
+
             return "post";
         } else {
             return "404";
@@ -74,7 +87,8 @@ public class PostController {
             @ModelAttribute Post post,
             @RequestParam("image") MultipartFile imageFile,
             @RequestParam(name = "categoryId", required = false) Long categoryId,
-            Principal principal) {
+            Principal principal)
+    {
 
         Optional<Post> optionalPost = postService.getById(id);
         if (optionalPost.isPresent()) {
@@ -127,7 +141,8 @@ public class PostController {
     public String createNewPost(@ModelAttribute Post post,
                                 @RequestParam(name = "categoryId", required = false) Long categoryId,
                                 @RequestParam(name = "image", required = false) MultipartFile imageFile,
-                                Principal principal) {
+                                Principal principal)
+    {
         String authUsername = principal.getName();
 
         Account account = accountService.findOneByEmail(authUsername)
@@ -157,7 +172,8 @@ public class PostController {
 
     @GetMapping("/posts/{id}/edit")
     @PreAuthorize("isAuthenticated()")
-    public String getPostForEdit(@PathVariable Long id, Model model, Principal principal) {
+    public String getPostForEdit(@PathVariable Long id, Model model, Principal principal)
+    {
         Optional<Post> optionalPost = postService.getById(id);
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
@@ -196,7 +212,8 @@ public class PostController {
         }
     }
 
-    private String convertToBase64(MultipartFile file) throws IOException {
+    private String convertToBase64(MultipartFile file) throws IOException
+    {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.write(file.getBytes());
         byte[] bytes = baos.toByteArray();

@@ -25,6 +25,7 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     String body;
 
+    @Column(columnDefinition = "TIMESTAMP")
     LocalDateTime createdAt;
 
     LocalDateTime updatedAt;
@@ -48,6 +49,16 @@ public class Post {
     @Getter
     @Transient
     private double averageRating;
+
+    @Setter
+    @Getter
+    @Transient
+    private long likeCount;
+
+    @Setter
+    @Getter
+    @Transient
+    private String formattedDate;
 
     @Lob
     @Column(columnDefinition = "LONGTEXT", nullable = true)

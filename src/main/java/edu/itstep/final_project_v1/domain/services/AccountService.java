@@ -6,6 +6,8 @@ import edu.itstep.final_project_v1.domain.repositories.AccountRepository;
 import edu.itstep.final_project_v1.domain.repositories.AuthorityRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +61,14 @@ public class AccountService {
 
     public void deleteAccountById(Long id) {
         accountRepository.deleteById(id);
+    }
+
+    public Account getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
+            String username = ((org.springframework.security.core.userdetails.User) authentication.getPrincipal()).getUsername();
+            return accountRepository.findOneByEmailIgnoreCase(username).orElse(null);
+        }
+        return null;
     }
 }

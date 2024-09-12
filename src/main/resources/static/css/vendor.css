@@ -27,8 +27,8 @@
    bottom: 0;
    left: 0;
    white-space: nowrap;
-   background: #ffffff;
-   background: white;
+   background: rgba(0, 0, 0, 0.8);
+   backdrop-filter: blur(10px);
    outline: none !important;
    opacity: 0;
    -webkit-transition: opacity 0.3s ease;
@@ -148,7 +148,7 @@
    text-align: center;
    padding: 0;
    margin: 0;
-   color: black;
+   color: #ffffff;
    font-style: normal;
    font-size: 30px;
    font-family: Arial, sans-serif;
@@ -170,7 +170,7 @@
    content: "";
    height: 20px;
    width: 2px;
-   background-color: black;
+   background-color: white;
    position: absolute;
    top: 11px;
    left: 20px;

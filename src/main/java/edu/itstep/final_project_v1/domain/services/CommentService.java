@@ -15,13 +15,18 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     public List<Comment> getByPostId(Long postId) {
-        return commentRepository.findByPostId(postId);
+        return commentRepository.findByPostIdOrderByCreatedAtDesc(postId);
     }
 
-    public void save(Comment comment) {
+    public Comment save(Comment comment) {
         if (comment.getId() == null) {
             comment.setCreatedAt(LocalDateTime.now());
         }
-        commentRepository.save(comment);
+
+        return commentRepository.save(comment);
+    }
+
+    public long countByPostId(Long postId) {
+        return commentRepository.countByPostId(postId);
     }
 }

@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,6 +26,6 @@ public class Category {
 
     LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    List<Post> posts;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
+    private Set<Post> posts;
 }

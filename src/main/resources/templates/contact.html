@@ -24,8 +24,10 @@
     <script src="/js/plugins.js"></script>
     <script src="/js/modernizr.js"></script>
     <script src="/js/pace.min.js"></script>
+
 </head>
 <body id="top">
+
     <div class="s-pageheader">
         <header class="header">
             <div class="header__content row">
@@ -83,10 +85,12 @@
                 <a class="header__toggle-menu" href="#" title="Menu"><span>Menu</span></a>
 
                 <nav class="header__nav-wrap">
+
                     <h2 class="header__nav-heading h6">Site Navigation</h2>
+
                     <ul class="header__nav">
                         <li><a th:href="@{/}" title="">Home</a></li>
-                        <li class="current"><a th:href="@{/posts}" title="">Posts</a></li>
+                        <li><a th:href="@{/posts}" title="">Posts</a></li>
                         <li class="has-children">
                             <a href="#" title="">Topics</a>
                             <ul class="sub-menu">
@@ -96,13 +100,15 @@
                             </ul>
                         </li>
                         <li><a th:href="@{/aboute}" title="">About</a></li>
-                        <li><a th:href="@{/contact}" title="">Contact</a></li>
+                        <li class="current"><a th:href="@{/contact}" title="">Contact</a></li>
                         <li sec:authorize="!isAuthenticated()" class="li_login"><a th:href="@{/login}" title="">Login</a></li>
                         <li sec:authorize="!isAuthenticated()" class="li_tegister"><a th:href="@{/register}" title="">Register</a></li>
                         <li class="header__search-trigger"></li>
                     </ul>
+
                     <a href="#" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
                 </nav>
+
                 <div class="header__search">
                     <form role="search" method="get" class="header__search-form" action="#">
                         <label>
@@ -116,80 +122,65 @@
         </header>
     </div>
 
-    <section style="background-color: #f2f2f2" class="s-extra">
-        <div class="row bottom tags-wrap">
-            <h3>Topics</h3>
-            <div class="col-full tags">
-                <div class="tagcloud" th:each="category : ${categories}">
-                    <a th:href="${category.id == selectedCategoryId ? '/posts' : '/posts/by-category/' + category.id}"
-                       th:text="${category.title}"
-                       th:classappend="${category.id == selectedCategoryId} ? 'selected' : ''"></a>
+    <section class="s-content s-content--narrow">
+        <div class="row">
+            <div class="s-content__header col-full">
+                <h1 style="padding: 0 8rem;" class="s-content__header-title">
+                    Feel Free To Contact Us.
+                </h1>
+            </div>
+
+            <div class="col-full s-content__main">
+                <p class="lead">
+                    Explore a world of flavors and elevate your cooking skills with our expert tips and delicious recipes. Our blog is here to inspire your culinary adventures and help you create unforgettable meals.
+                </p>
+                <p>
+                    From simple weeknight dinners to elaborate holiday feasts, we cover a broad range of topics that cater to all tastes and skill levels. Dive into our collection of articles and find something that sparks your culinary creativity. We're excited to be part of your cooking journey and look forward to sharing our love for food with you.
+                </p>
+                <div class="row">
+                    <div class="col-six tab-full">
+                        <h3>Where to Find Us</h3>
+                        <p>
+                            1600 Amphitheatre Parkway<br>
+                            Mountain View, CA<br>
+                            94043 US
+                        </p>
+                    </div>
+
+                    <div class="col-six tab-full">
+                        <h3>Contact Info</h3>
+                        <p>contact@philosophywebsite.com<br>
+                            info@philosophywebsite.com <br>
+                            Phone: (+1) 123 456
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section style="background-color: #f2f2f2" class="s-content">
-        <div class="row masonry-wrap">
-            <div class="masonry">
-                <article class="masonry__brick entry format-standard" data-aos="fade-up" th:each="post : ${posts}">
-                    <div class="entry__thumb">
-                        <a th:href="@{'/posts/' + ${post.id}}" class="entry__thumb-link">
-                            <img th:if="${post.imageBase64}" th:src="'data:image/jpeg;base64,' + ${post.imageBase64}" alt="">
-                        </a>
-                    </div>
-                    <div class="entry__text">
-                        <div class="entry__header">
-                            <div class="entry__date">
-                                <a href="#" th:text="${post.formattedDate}"></a>
-                            </div>
-                            <h1 class="entry__title"><a th:href="@{'/posts/' + ${post.id}}" th:text="${post.title}"></a></h1>
-                        </div>
-                        <div class="entry__excerpt">
-                            <p th:if="${post.body.length() > 250}" th:text="${post.body.substring(0, 250) + ' ...'}"></p>
-                        </div>
-                        <div class="entry__meta">
-                        <span class="entry__meta-links">
-                            <a th:href="@{'/posts/by-category/' + ${post.category.id}}" th:text="${post.category.title}"></a>
-                        </span>
-                            <form id="ratingForm_${post.id}" th:action="@{'/top_post/' + ${post.id} + '/rate'}" method="post">
-                                <div class="like" id="like" th:classappend="${userLiked[post.id] != null && userLiked[post.id] ? ' liked' : ''}">
-                                    <button type="submit" style="background: none; border: none; padding: 0; margin: 0; width: 36px; height: 28px;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
-                                            <path d="M18.2634 3.0686C15.9672 3.0686 13.9734 4.25744 12.9993 5.98795C12.0258 4.25744 10.0315 3.0686 7.73576 3.0686C4.24931 3.0686 2.16602 6.11136 2.16602 9.05284C2.16602 16.0191 12.2514 22.0401 12.6809 22.2931C12.7794 22.3515 12.8891 22.3802 12.9993 22.3802C13.1096 22.3802 13.2193 22.3515 13.3178 22.2931C13.7473 22.0401 23.8327 16.0191 23.8327 9.05284C23.8327 6.11136 21.7494 3.0686 18.2634 3.0686Z"
-                                                  fill="#F2F7FC" stroke="#424242" stroke-width="1.70128" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </button>
-                                    <p class="likeCount" th:text="${likeCounts[post.id] != null ? likeCounts[post.id] : 0}"></p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
+                <h3>Say Hello.</h3>
 
-        <div class="row" th:if="${totalPages > 1}">
-            <div class="col-full">
-                <nav class="pgn">
-                    <ul>
-                        <li th:if="${currentPage > 0}">
-                            <a class="pgn__prev" th:href="@{/posts(page=${currentPage - 1})}">Prev</a>
-                        </li>
-                        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                            th:classappend="${i == currentPage} ? 'current'">
-                            <a class="pgn__num" th:href="@{/posts(page=${i})}" th:text="${i + 1}">1</a>
-                        </li>
-                        <li th:if="${currentPage < totalPages - 1}">
-                            <a class="pgn__next" th:href="@{/posts(page=${currentPage + 1})}">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+                <form name="cForm" id="cForm" method="post" action="">
+                    <fieldset>
+                        <div class="form-field">
+                            <label for="cName"></label><input name="cName" type="text" id="cName" class="full-width" placeholder="Your Name" value="">
+                        </div>
+                        <div class="form-field">
+                            <label for="cEmail"></label><input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Your Email" value="">
+                        </div>
+                        <div class="form-field">
+                            <label for="cWebsite"></label><input name="cWebsite" type="text" id="cWebsite" class="full-width" placeholder="Website" value="">
+                        </div>
+                        <div class="message form-field">
+                            <label for="cMessage"></label><textarea name="cMessage" id="cMessage" class="full-width" placeholder="Your Message" ></textarea>
+                        </div>
+                        <button type="submit" class="submit btn btn--primary full-width">Submit</button>
+                    </fieldset>
+                </form>
             </div>
         </div>
     </section>
 
     <section class="s-extra">
+
         <div class="row top">
             <div class="col-eight md-six tab-full popular">
                 <h3>Popular Posts</h3>
@@ -199,9 +190,9 @@
                             <img th:if="${post.imageBase64}" th:src="'data:image/jpeg;base64,' + ${post.imageBase64}" alt="">
                         </a>
                         <h5><a href="#">Visiting Theme Parks Improves Your Health.</a></h5>
-                        <section class="popular__meta">
-                            <span class="popular__author"><span>By</span> <a href="#" th:text="${post.account.lastName} + ' ' + ${post.account.firstName}"></a></span>
-                            <span class="popular__date"><span>on</span> <a href="#" th:text="${post.formattedDate}"></a></span>
+                        <section class="popular__meta" draggable="true">
+                            <span class="popular__author"><span>By</span> <span th:text="${post.account.lastName} + ' ' + ${post.account.firstName}"></span></span>
+                            <span class="popular__date"><span>on</span> <span th:text="${post.formattedDate}"></span></span>
                         </section>
                     </article>
                 </div>
@@ -226,6 +217,15 @@
                         <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
                     </li>
                 </ul>
+            </div>
+        </div>
+
+        <div class="row bottom tags-wrap">
+            <h3>Topics</h3>
+            <div class="col-full tags">
+                <div class="tagcloud" th:each="category : ${categories}">
+                    <a th:text="${category.title}" th:href="@{'/posts/by-category/' + ${category.id}}"></a>
+                </div>
             </div>
         </div>
     </section>
@@ -299,7 +299,6 @@
                 </div>
             </div>
         </div>
-
     </footer>
 
     <div id="preloader">
@@ -314,41 +313,6 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('form[id^="ratingForm_"]').forEach(form => {
-                form.addEventListener('submit', function (event) {
-                    event.preventDefault();
-
-                    const formData = new FormData(form);
-                    fetch(form.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data) {
-                                const postId = data.postId;
-                                const likeCountElement = form.querySelector(`.likeCount`);
-                                const likeButton = form.querySelector('.like');
-                                likeCountElement.textContent = data.likeCount;
-                                if (likeButton) {
-                                    if (data.liked) {
-                                        likeButton.classList.add('liked');
-                                    } else {
-                                        likeButton.classList.remove('liked');
-                                    }
-                                }
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
-                });
-            });
-        });
-    </script>
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/plugins.js"></script>
     <script src="/js/main.js"></script>

@@ -9,10 +9,14 @@ import edu.itstep.final_project_v1.domain.services.PostService;
 import edu.itstep.final_project_v1.domain.services.RatingService;
 import edu.itstep.final_project_v1.web.config.StateMethod;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +37,8 @@ public class HomeController {
         List<Post> posts = postService.getAll();
         List<Category> categories = categoryService.getAll();
 
+        Account account = new Account();
+        model.addAttribute("account", account);
         Map<Long, Long> likeCounts = posts.stream()
                 .collect(Collectors.toMap(Post::getId, post -> ratingService.getLikeCountByPostId(post.getId())));
 
@@ -59,27 +65,36 @@ public class HomeController {
     }
 
     @GetMapping("/posts")
-    public String allPosts(Model model, Principal principal) {
+    public String allPosts(Model model,
+                           Principal principal,
+                           @RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "8") int size) {
         StateMethod.populateModel(model, postService, categoryService);
 
-        List<Post> posts = postService.getAll();
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Post> postPage = postService.getAll(pageable);
         List<Category> categories = categoryService.getAll();
 
-        Map<Long, Long> likeCounts = posts.stream()
+        Account account = new Account();
+        model.addAttribute("account", account);
+
+        Map<Long, Long> likeCounts = postPage.getContent().stream()
                 .collect(Collectors.toMap(Post::getId, post -> ratingService.getLikeCountByPostId(post.getId())));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
 
-        for (Post post : posts) {
+        for (Post post : postPage.getContent()) {
             String formattedDate = post.getCreatedAt().format(formatter);
             post.setFormattedDate(formattedDate);
         }
 
-        model.addAttribute("posts", posts);
+        model.addAttribute("posts", postPage.getContent());
         model.addAttribute("likeCounts", likeCounts);
         model.addAttribute("categories", categories);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", postPage.getTotalPages());
 
-        addUserRatingsToModel(model, posts, principal);
+        addUserRatingsToModel(model, postPage.getContent(), principal);
 
         return "posts";
     }
@@ -99,13 +114,35 @@ public class HomeController {
     }
 
     @GetMapping("/posts/by-category/{categoryId}")
-    public String getPostsByBlog(@PathVariable Long categoryId, Model model) {
-        List<Post> posts = postService.getPostsByBlog(categoryId);
+    public String getPostsByBlog(@PathVariable Long categoryId,
+                                 Model model,
+                                 Principal principal,
+                                 @RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "8") int size) {
+        StateMethod.populateModel(model, postService, categoryService);
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Post> postPage = postService.getPostsByBlog(categoryId, pageable);
         List<Category> categories = categoryService.getAll();
 
-        model.addAttribute("posts", posts);
+        Map<Long, Long> likeCounts = postPage.getContent().stream()
+                .collect(Collectors.toMap(Post::getId, post -> ratingService.getLikeCountByPostId(post.getId())));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
+
+        for (Post post : postPage.getContent()) {
+            String formattedDate = post.getCreatedAt().format(formatter);
+            post.setFormattedDate(formattedDate);
+        }
+
+        model.addAttribute("posts", postPage.getContent());
         model.addAttribute("categories", categories);
-        model.addAttribute("selectedBlogId", categoryId);
+        model.addAttribute("selectedCategoryId", categoryId);
+        model.addAttribute("likeCounts", likeCounts);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", postPage.getTotalPages());
+
+        addUserRatingsToModel(model, postPage.getContent(), principal);
 
         return "posts";
     }

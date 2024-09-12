@@ -5,16 +5,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blog :: About</title>
+    <title>FOOD.CO.UK</title>
 
     <!-- CSS
     ================================================== -->
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/vendor.css">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/fonts.css">
 
     <!-- favicons
     ================================================== -->
+    <link rel="icon" href="/images/food-2.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- script
@@ -89,15 +91,15 @@
                         <li><a th:href="@{/}" title="">Home</a></li>
                         <li><a th:href="@{/posts}" title="">Posts</a></li>
                         <li class="has-children">
-                            <a href="#" title="">Categories</a>
+                            <a href="#" title="">Topics</a>
                             <ul class="sub-menu">
                                 <li th:each="category : ${categories}">
-                                    <a href="#" th:text="${category.title}"></a>
+                                    <a th:href="@{'/posts/by-category/' + ${category.id}}" th:text="${category.title}"></a>
                                 </li>
                             </ul>
                         </li>
                         <li class="current"><a th:href="@{/aboute}" title="">About</a></li>
-                        <li><a href="#" title="">Contact</a></li>
+                        <li><a th:href="@{/contact}" title="">Contact</a></li>
                         <li sec:authorize="!isAuthenticated()" class="li_login"><a th:href="@{/login}" title="">Login</a></li>
                         <li sec:authorize="!isAuthenticated()" class="li_tegister"><a th:href="@{/register}" title="">Register</a></li>
                         <li class="header__search-trigger"></li>
@@ -117,13 +119,14 @@
                 </div>
             </div>
         </header>
+
     </div>
 
     <section style="background-color: #f2f2f2" class="s-content s-content--narrow">
         <div class="row">
             <div class="s-content__header col-full">
-                <h1 class="s-content__header-title">
-                    Learn More About Us.
+                <h1 style="padding: 0 8rem;" class="s-content__header-title">
+                    Discover More About Our Culinary Journey.
                 </h1>
             </div>
 
@@ -138,25 +141,25 @@
             </div>
 
             <div class="col-full s-content__main">
-                <p class="lead">Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint.</p>
-                <p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
-                <p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco.</p>
+                <p class="lead">Welcome to our culinary blog, where passion for food meets creativity. Our journey began with a simple love for cooking and a desire to share delicious recipes and culinary tips with the world. From mouthwatering desserts to nutritious meals, we strive to inspire and delight food enthusiasts everywhere.</p>
+                <p>Our blog is more than just a collection of recipes; it's a celebration of food culture, seasonal ingredients, and innovative cooking techniques. We believe in the power of food to bring people together and create lasting memories. Join us as we explore diverse cuisines, share our favorite dishes, and discover new flavors.</p>
+                <p>Whether you're looking for healthy meal ideas, indulgent treats, or quick weeknight dinners, our blog offers something for everyone. Dive into our curated posts, and let us guide you through the joys of cooking and eating well.</p>
                 <div class="row block-1-2 block-tab-full">
                     <div class="col-block">
                         <h3 class="quarter-top-margin">Who We Are.</h3>
-                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
+                        <p>We are a team of passionate food lovers dedicated to bringing you the best in culinary experiences. Our team includes chefs, home cooks, and food enthusiasts who share a common goal: to make cooking enjoyable and accessible for everyone.</p>
                     </div>
                     <div class="col-block">
                         <h3 class="quarter-top-margin">Our Mission.</h3>
-                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
+                        <p>Our mission is to inspire and empower home cooks by providing high-quality, easy-to-follow recipes and cooking tips. We aim to make cooking a joyful and rewarding experience, whether you're preparing a weeknight dinner or a special celebration.</p>
                     </div>
                     <div class="col-block">
                         <h3 class="quarter-top-margin">Our Vision.</h3>
-                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
+                        <p>We envision a world where everyone feels confident in the kitchen and enjoys the pleasures of cooking and eating. Through our blog, we aim to foster a love for food that transcends boundaries and brings people closer together.</p>
                     </div>
                     <div class="col-block">
                         <h3 class="quarter-top-margin">Our Values.</h3>
-                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
+                        <p>We value creativity, quality, and community. Our recipes are crafted with care, using fresh and seasonal ingredients. We believe in the importance of sharing our culinary knowledge and building a supportive community of food lovers.</p>
                     </div>
                 </div>
             </div>
@@ -174,18 +177,18 @@
                             <img th:if="${post.imageBase64}" th:src="'data:image/jpeg;base64,' + ${post.imageBase64}" alt="">
                         </a>
                         <h5><a href="#">Visiting Theme Parks Improves Your Health.</a></h5>
-                        <section class="popular__meta">
-                            <span class="popular__author"><span>By</span> <a href="#" th:text="${post.account.lastName} + ' ' + ${post.account.firstName}"></a></span>
-                            <span class="popular__date"><span>on</span> <a href="#" th:text="${post.formattedDate}"></a></span>
+                        <section class="popular__meta" draggable="true">
+                            <span class="popular__author"><span>By</span> <span th:text="${post.account.lastName} + ' ' + ${post.account.firstName}"></span></span>
+                            <span class="popular__date"><span>on</span> <span th:text="${post.formattedDate}"></span></span>
                         </section>
                     </article>
                 </div>
             </div>
 
             <div class="col-four md-six tab-full about">
-                <h3>About Philosophy</h3>
+                <h3>About FOOD.CO.UK</h3>
                 <p>
-                    Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Pellentesque in ipsum id orci porta dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
+                    Our culinary blog is driven by a passion for celebrating the art of cooking and the joy of sharing delicious experiences. We believe that food is not just about sustenance but also about bringing people together, exploring new flavors, and expressing creativity. Our mission is to inspire and educate both novice and experienced cooks by providing a diverse range of recipes, cooking tips, and culinary stories.
                 </p>
                 <ul class="about__social">
                     <li>
@@ -205,10 +208,10 @@
         </div>
 
         <div class="row bottom tags-wrap">
-            <h3>Categories</h3>
+            <h3>Topics</h3>
             <div class="col-full tags">
                 <div class="tagcloud" th:each="category : ${categories}">
-                    <a th:text="${category.title}" href="#"></a>
+                    <a th:text="${category.title}" th:href="@{'/posts/by-category/' + ${category.id}}"></a>
                 </div>
             </div>
         </div>
@@ -221,7 +224,7 @@
                     <h4>Quick Links</h4>
                     <ul class="s-footer__linklist">
                         <li><a href="#">Home</a></li>
-                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">Posts</a></li>
                         <li><a href="#">About</a></li>
                         <li><a href="#">Contact</a></li>
                         <li><a href="#">Privacy Policy</a></li>
@@ -229,9 +232,11 @@
                 </div>
 
                 <div class="col-two md-four mob-full s-footer__archives">
-                    <h4>Categories</h4>
+                    <h4>Topics</h4>
                     <ul class="s-footer__linklist">
-                        <li th:each="category : ${categories}"><a href="#" th:text="${category.title}"></a></li>
+                        <li th:each="category : ${categories}">
+                            <a th:href="@{'/posts/by-category/' + ${category.id}}" th:text="${category.title}"></a>
+                        </li>
                     </ul>
                 </div>
 
@@ -249,7 +254,9 @@
 
                 <div class="col-five md-full end s-footer__subscribe">
                     <h4>Our Newsletter</h4>
-                    <p>Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim exercitationem ipsam. Culpa consequatur occaecati.</p>
+                    <p>
+                        Join our community of food lovers and get the best of our culinary blog delivered straight to you. Whether you’re looking for new meal ideas or just want to keep in touch with the latest trends, our newsletter is the perfect way to stay connected.
+                    </p>
                     <div class="subscribe-form">
                         <form id="mc-form" class="group" novalidate="novalidate">
                             <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
@@ -265,14 +272,14 @@
             <div class="row">
                 <div class="col-full">
                     <div class="s-footer__copyright">
-                        <span>© Copyright Philosophy 2024</span>
+                        <span>© Copyright FOOD.CO.UA 2024</span>
                         <span>Site Template by <a href="#">alad1n0</a></span>
                     </div>
 
                     <div class="go-top">
                         <a style="padding-right: 15px;" th:href="@{/posts/new}">Create post
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 5px;">
-                                <path d="M8.125 2.5C8.125 2.15482 7.84518 1.875 7.5 1.875C7.15482 1.875 6.875 2.15482 6.875 2.5V6.875H2.5C2.15482 6.875 1.875 7.15482 1.875 7.5C1.875 7.84518 2.15482 8.125 2.5 8.125H6.875V12.5C6.875 12.8452 7.15482 13.125 7.5 13.125C7.84518 13.125 8.125 12.8452 8.125 12.5V8.125H12.5C12.8452 8.125 13.125 7.84518 13.125 7.5C13.125 7.15482 12.8452 6.875 12.5 6.875H8.125V2.5Z" fill="white"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 40 40" fill="none">
+                                <path d="M22.4583 18.0417V7H18.0417V18.0417H7V22.4583H18.0417V33.5H22.4583V22.4583H33.5V18.0417H22.4583Z" fill="white"/>
                             </svg>
                         </a>
                     </div>

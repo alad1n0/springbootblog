@@ -1,5 +1,7 @@
 package edu.itstep.final_project_v1.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -33,16 +35,20 @@ public class Post {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
+    @JsonManagedReference
     Account account;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = true)
+    @JsonManagedReference
     Category category;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @JsonManagedReference
     List<Comment> comments;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @JsonManagedReference
     List<Rating> ratings;
 
     @Setter

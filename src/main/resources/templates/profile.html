@@ -121,26 +121,116 @@
         </header>
     </div>
 
-<h1>User Profile</h1>
+    <h1>User Profile</h1>
 
-<div>
-    <form th:action="@{/update-profile}" th:object="${user}" method="post">
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" th:field="*{email}" readonly />
+    <div>
+        <form th:action="@{/update-profile}" th:object="${user}" method="post">
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" readonly />
+            </div>
+            <div>
+                <label for="firstname">First Name:</label>
+                <input type="text" id="firstname" th:field="*{firstName}" />
+            </div>
+            <div>
+                <label for="lastname">Last Name:</label>
+                <input type="text" id="lastname" th:field="*{lastName}" />
+            </div>
+            <div>
+                <button type="submit">Update Profile</button>
+            </div>
+        </form>
+    </div>
+
+    <footer class="s-footer">
+        <div class="s-footer__main">
+            <div class="row">
+                <div class="col-two md-four mob-full s-footer__sitelinks">
+                    <h4>Quick Links</h4>
+                    <ul class="s-footer__linklist">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Posts</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-two md-four mob-full s-footer__archives">
+                    <h4>Topics</h4>
+                    <ul class="s-footer__linklist">
+                        <li th:each="category : ${categories}">
+                            <a th:href="@{'/posts/by-category/' + ${category.id}}" th:text="${category.title}"></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-two md-four mob-full s-footer__social">
+                    <h4>Social</h4>
+                    <ul class="s-footer__linklist">
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Pinterest</a></li>
+                        <li><a href="#">Google+</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-five md-full end s-footer__subscribe">
+                    <h4>Our Newsletter</h4>
+                    <p>
+                        Join our community of food lovers and get the best of our culinary blog delivered straight to you. Whether you’re looking for new meal ideas or just want to keep in touch with the latest trends, our newsletter is the perfect way to stay connected.
+                    </p>
+                    <div class="subscribe-form">
+                        <form id="mc-form" class="group" novalidate="novalidate">
+                            <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
+                            <input type="submit" name="subscribe" value="Send">
+                            <label for="mc-email" class="subscribe-message"></label>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="firstname">First Name:</label>
-            <input type="text" id="firstname" th:field="*{firstName}" />
+
+        <div class="s-footer__bottom">
+            <div class="row">
+                <div class="col-full">
+                    <div class="s-footer__copyright">
+                        <span>© Copyright FOOD.CO.UA 2024</span>
+                        <span>Site Template by <a href="#">alad1n0</a></span>
+                    </div>
+
+                    <div class="go-top">
+                        <a style="padding-right: 15px;" th:href="@{/posts/new}">Create post
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 40 40" fill="none">
+                                <path d="M22.4583 18.0417V7H18.0417V18.0417H7V22.4583H18.0417V33.5H22.4583V22.4583H33.5V18.0417H22.4583Z" fill="white"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="lastname">Last Name:</label>
-            <input type="text" id="lastname" th:field="*{lastName}" />
+
+    </footer>
+
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
-        <div>
-            <button type="submit">Update Profile</button>
-        </div>
-    </form>
-</div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/plugins.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>

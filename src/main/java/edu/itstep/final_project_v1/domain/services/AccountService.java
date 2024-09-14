@@ -52,11 +52,11 @@ public class AccountService {
         return accountRepository.findOneByEmailIgnoreCase(email);
     }
 
-    public Account updateAccount(Account account) {
+    public void updateAccount(Account account) {
         if (account == null || account.getId() == null || !accountRepository.existsById(account.getId())) {
             throw new IllegalArgumentException("Account must exist to update.");
         }
-        return accountRepository.save(account);
+        accountRepository.save(account);
     }
 
     public void deleteAccountById(Long id) {

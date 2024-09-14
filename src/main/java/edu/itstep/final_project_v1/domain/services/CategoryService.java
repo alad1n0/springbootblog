@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -20,5 +21,9 @@ public class CategoryService {
 
     public Optional<Category> getById(Long id) {
         return blogRepository.findById(id);
+    }
+
+    public List<Category> getCategoriesByIds(Set<Long> categoryIds) {
+        return blogRepository.findAllById(categoryIds);
     }
 }

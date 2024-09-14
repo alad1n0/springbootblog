@@ -122,7 +122,7 @@
 
         <div class="modal-container">
             <div class="wrapper">
-                <div style="padding-top: 80px;" class="from_box login">
+                <div style="padding-top: 40px;" class="from_box login">
                     <div class="wrapperinfo">
                         <h1 style="margin: 0; font-size: 20px;">Login</h1>
                         <span class="icon_close"><ion-icon name="close-outline"></ion-icon></span>
@@ -148,13 +148,13 @@
                     </form>
                 </div>
 
-                <div class="from_box register">
-                    <div class="wrapperinfo">
+                <div style="padding-top: 40px;" class="from_box register">
+                    <div  class="wrapperinfo">
                         <h1 style="margin: 0; font-size: 20px;">Register</h1>
                         <span class="icon_close"><ion-icon name="close-outline"></ion-icon></span>
                     </div>
 
-                    <form id="formregister" th:action="@{/register}" th:object="${account}" method="POST">
+                    <form style="padding-top: 40px" id="formregister" th:action="@{/register}" th:object="${account}" method="POST">
                         <div class="form-field">
                             <label for="firstname"></label>
                             <input name="firstname" type="text" th:field="*{firstName}" id="firstname" class="full-width" placeholder="First Name" value="">
@@ -171,7 +171,7 @@
                             <label for="password_register"></label>
                             <input name="password_register" type="password" th:field="*{password}" id="password_register" class="full-width" placeholder="Password" value="">
                         </div>
-                        <div style="padding-top: 82px; display: flex; flex-direction: column">
+                        <div style="padding-top: 40px; display: flex; flex-direction: column">
                             <button type="submit" class="submit btn btn--primary full-width">Register</button>
                             <button type="button" class="submit btn btn--primary full-width switch-to-login" style="background: #E2E2E2; border: none; color: #29322F;">Login</button>
                         </div>
@@ -253,9 +253,9 @@
                             <p th:if="${posts[3].body.length() > 250}" th:text="${posts[3].body.substring(0, 250) + ' ...'}"></p>
                         </div>
                         <div class="entry__meta">
-                            <span class="entry__meta-links">
-                                <a href="#" th:text="${posts[3].category.title}">Design</a>
-                            </span>
+                                <span class="entry__meta-links">
+                                    <a href="#" th:text="${posts[3].category.title}">Design</a>
+                                </span>
                             <form id="ratingForm_${posts[3].id}" th:action="@{'/top_post/' + ${posts[3].id} + '/rate'}" method="post">
                                 <div class="like" id="like[3]" th:classappend="${userLiked[posts[3].id] != null && userLiked[posts[3].id] ? ' liked' : ''}">
                                     <button type="submit" style="background: none; border: none; padding: 0; margin: 0; width: 36px; height: 28px;">
@@ -295,9 +295,9 @@
                             <p th:if="${posts[4].body.length() > 250}" th:text="${posts[4].body.substring(0, 250) + ' ...'}"></p>
                         </div>
                         <div class="entry__meta">
-                            <span class="entry__meta-links">
-                                <a href="#" th:text="${posts[4].category.title}">Design</a>
-                            </span>
+                                <span class="entry__meta-links">
+                                    <a href="#" th:text="${posts[4].category.title}">Design</a>
+                                </span>
                             <form id="ratingForm_${posts[4].id}" th:action="@{'/top_post/' + ${posts[4].id} + '/rate'}" method="post">
                                 <div class="like" id="like[4]" th:classappend="${userLiked[posts[4].id] != null && userLiked[posts[4].id] ? ' liked' : ''}">
                                     <button type="submit" style="background: none; border: none; padding: 0; margin: 0; width: 36px; height: 28px;">
@@ -329,9 +329,9 @@
                             <p th:if="${posts[5].body.length() > 250}" th:text="${posts[5].body.substring(0, 250) + ' ...'}"></p>
                         </div>
                         <div class="entry__meta">
-                            <span class="entry__meta-links">
-                                <a href="#" th:text="${posts[5].category.title}">Design</a>
-                            </span>
+                                <span class="entry__meta-links">
+                                    <a href="#" th:text="${posts[5].category.title}">Design</a>
+                                </span>
                             <form id="ratingForm_${posts[5].id}" th:action="@{'/top_post/' + ${posts[5].id} + '/rate'}" method="post">
                                 <div class="like" id="like[5]" th:classappend="${userLiked[posts[5].id] != null && userLiked[posts[5].id] ? ' liked' : ''}">
                                     <button type="submit" style="background: none; border: none; padding: 0; margin: 0; width: 36px; height: 28px;">
@@ -363,9 +363,9 @@
                             <p th:if="${posts[6].body.length() > 250}" th:text="${posts[6].body.substring(0, 250) + ' ...'}"></p>
                         </div>
                         <div class="entry__meta">
-                            <span class="entry__meta-links">
-                                <a href="#" th:text="${posts[6].category.title}">Design</a>
-                            </span>
+                                <span class="entry__meta-links">
+                                    <a href="#" th:text="${posts[6].category.title}">Design</a>
+                                </span>
                             <form id="ratingForm_${posts[6].id}" th:action="@{'/top_post/' + ${posts[6].id} + '/rate'}" method="post">
                                 <div class="like" id="like[6]" th:classappend="${userLiked[posts[6].id] != null && userLiked[posts[6].id] ? ' liked' : ''}">
                                     <button type="submit" style="background: none; border: none; padding: 0; margin: 0; width: 36px; height: 28px;">
@@ -439,9 +439,9 @@
                             <p th:if="${posts[7].body.length() > 250}" th:text="${posts[7].body.substring(0, 250) + ' ...'}"></p>
                         </div>
                         <div class="entry__meta">
-                            <span class="entry__meta-links">
-                                <a href="#" th:text="${posts[7].category.title}">Design</a>
-                            </span>
+                                <span class="entry__meta-links">
+                                    <a href="#" th:text="${posts[7].category.title}">Design</a>
+                                </span>
                             <form id="ratingForm_${posts[7].id}" th:action="@{'/top_post/' + ${posts[7].id} + '/rate'}" method="post">
                                 <div class="like" id="like[7]" th:classappend="${userLiked[posts[7].id] != null && userLiked[posts[7].id] ? ' liked' : ''}">
                                     <button type="submit" style="background: none; border: none; padding: 0; margin: 0; width: 36px; height: 28px;">
@@ -632,23 +632,23 @@
                             'X-Requested-With': 'XMLHttpRequest'
                         }
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data) {
-                            const postId = data.postId;
-                            const likeCountElement = form.querySelector(`.likeCount`);
-                            const likeButton = form.querySelector('.like');
-                            likeCountElement.textContent = data.likeCount;
-                            if (likeButton) {
-                                if (data.liked) {
-                                    likeButton.classList.add('liked');
-                                } else {
-                                    likeButton.classList.remove('liked');
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data) {
+                                const postId = data.postId;
+                                const likeCountElement = form.querySelector(`.likeCount`);
+                                const likeButton = form.querySelector('.like');
+                                likeCountElement.textContent = data.likeCount;
+                                if (likeButton) {
+                                    if (data.liked) {
+                                        likeButton.classList.add('liked');
+                                    } else {
+                                        likeButton.classList.remove('liked');
+                                    }
                                 }
                             }
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
+                        })
+                        .catch(error => console.error('Error:', error));
                 });
             });
         });

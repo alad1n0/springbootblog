@@ -104,7 +104,7 @@
                     <a href="#" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
                 </nav>
                 <div class="header__search">
-                    <form role="search" method="get" class="header__search-form" action="#">
+                    <form role="search" method="get" class="header__search-form" th:action="@{/search}">
                         <label>
                             <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="Search for:" autocomplete="off">
                         </label>
@@ -120,11 +120,19 @@
         <div class="row bottom tags-wrap">
             <h3>Topics</h3>
             <div class="col-full tags">
-                <div class="tagcloud" th:each="category : ${categories}">
+
+                <div th:if="${searchQuery != null}" class="tagcloud" th:each="category : ${categories}">
+                    <a th:href="@{'/search'(categoryId=${category.id}, s=${searchQuery})}"
+                       th:text="${category.title}"
+                       th:classappend="${category.id == selectedCategoryId} ? 'selected' : ''"></a>
+                </div>
+
+                <div th:if="${searchQuery == null}" class="tagcloud" th:each="category : ${categories}">
                     <a th:href="${category.id == selectedCategoryId ? '/posts' : '/posts/by-category/' + category.id}"
                        th:text="${category.title}"
                        th:classappend="${category.id == selectedCategoryId} ? 'selected' : ''"></a>
                 </div>
+
             </div>
         </div>
     </section>
@@ -174,14 +182,35 @@
                 <nav class="pgn">
                     <ul>
                         <li th:if="${currentPage > 0}">
-                            <a class="pgn__prev" th:href="@{/posts(page=${currentPage - 1})}">Prev</a>
+                            <a class="pgn__prev" th:if="${searchQuery != null}"
+                               th:href="@{/search(s=${searchQuery}, categoryId=${selectedCategoryId}, page=${currentPage - 1})}">
+                                Prev
+                            </a>
+                            <a class="pgn__prev" th:if="${searchQuery == null}"
+                               th:href="@{/posts(page=${currentPage - 1})}">
+                                Prev
+                            </a>
                         </li>
+
                         <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
                             th:classappend="${i == currentPage} ? 'current'">
-                            <a class="pgn__num" th:href="@{/posts(page=${i})}" th:text="${i + 1}">1</a>
+                            <a class="pgn__num" th:if="${searchQuery != null}"
+                               th:href="@{/search(s=${searchQuery}, categoryId=${selectedCategoryId}, page=${i})}"
+                               th:text="${i + 1}">1</a>
+                            <a class="pgn__num" th:if="${searchQuery == null}"
+                               th:href="@{/posts(page=${i})}"
+                               th:text="${i + 1}">1</a>
                         </li>
+
                         <li th:if="${currentPage < totalPages - 1}">
-                            <a class="pgn__next" th:href="@{/posts(page=${currentPage + 1})}">Next</a>
+                            <a class="pgn__next" th:if="${searchQuery != null}"
+                               th:href="@{/search(s=${searchQuery}, categoryId=${selectedCategoryId}, page=${currentPage + 1})}">
+                                Next
+                            </a>
+                            <a class="pgn__next" th:if="${searchQuery == null}"
+                               th:href="@{/posts(page=${currentPage + 1})}">
+                                Next
+                            </a>
                         </li>
                     </ul>
                 </nav>

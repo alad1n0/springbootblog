@@ -22,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Account> optionalAccount = accountService.findOneByEmail(email);
-        if (!optionalAccount.isPresent()) {
+        if (optionalAccount.isEmpty()) {
             throw new UsernameNotFoundException("Account not found");
         }
         Account account = optionalAccount.get();

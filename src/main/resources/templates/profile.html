@@ -121,27 +121,107 @@
         </header>
     </div>
 
-    <h1>User Profile</h1>
+    <section style="background-color: #f2f2f2" class="s-content">
+        <div class="profile_container">
+            <div class="profile">
+                <div class="image-container">
+                    <img src="/images/avatars/user-01.jpg" alt="">
+                </div>
+                <div class="profile_info_content">
+                    <div class="profile_info_text">
+                        <h3 th:text="${user.firstName}"></h3>
+                        <p th:text="${user.email}"></p>
+                    </div>
+                    <div class="profile_logout">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M14.5779 0.00088329H7.96674C7.73249 0.00088329 7.50784 0.0939395 7.34219 0.259581C7.17655 0.425222 7.0835 0.64988 7.0835 0.884132C7.0835 1.11838 7.17655 1.34304 7.34219 1.50868C7.50784 1.67432 7.73249 1.76738 7.96674 1.76738H14.5779C15.3224 1.76738 15.9283 2.37064 15.9283 3.11257V14.5718C15.9283 15.3138 15.3224 15.9179 14.5779 15.9179H7.96674C7.73249 15.9179 7.50784 16.011 7.34219 16.1766C7.17655 16.3422 7.0835 16.5669 7.0835 16.8012C7.0835 17.0354 7.17655 17.2601 7.34219 17.4257C7.50784 17.5913 7.73249 17.6844 7.96674 17.6844H14.5779C15.4037 17.6842 16.1957 17.3563 16.7801 16.7728C17.3645 16.1892 17.6934 15.3977 17.6948 14.5718V3.11257C17.6934 2.28673 17.3645 1.49518 16.7801 0.91164C16.1957 0.328097 15.4037 0.000232756 14.5779 0V0.00088329Z" fill="black"/>
+                            <path d="M2.91207 9.72826H11.4681C11.7024 9.72826 11.927 9.63521 12.0926 9.46957C12.2583 9.30393 12.3513 9.07927 12.3513 8.84502C12.3513 8.61076 12.2583 8.38611 12.0926 8.22047C11.927 8.05482 11.7024 7.96177 11.4681 7.96177H2.92974L5.63424 5.07354C5.71703 4.98961 5.78218 4.88994 5.82584 4.78043C5.8695 4.67092 5.8908 4.55377 5.88847 4.4359C5.88615 4.31803 5.86025 4.20181 5.8123 4.09411C5.76435 3.9864 5.69533 3.88938 5.6093 3.80878C5.52326 3.72817 5.42196 3.6656 5.31137 3.62476C5.20077 3.58392 5.08312 3.56563 4.96534 3.57098C4.84757 3.57632 4.73205 3.60519 4.62561 3.65589C4.51917 3.70658 4.42396 3.77807 4.34558 3.86614L0.283523 8.20378C0.186695 8.29436 0.111783 8.40583 0.0644771 8.5297C0.0415126 8.58711 0.0379797 8.64805 0.028264 8.70811C0.0203148 8.75492 0 8.79644 0 8.84502L0.00176647 8.85032C-0.000312475 9.07645 0.0847732 9.2947 0.23936 9.45976L4.34647 13.8442C4.42544 13.9291 4.52043 13.9976 4.62596 14.0457C4.7315 14.0938 4.8455 14.1205 4.96141 14.1244C5.07731 14.1282 5.19284 14.1091 5.30134 14.0682C5.40983 14.0272 5.50917 13.9652 5.59361 13.8857C5.67832 13.8064 5.74658 13.7112 5.79447 13.6055C5.84236 13.4998 5.86895 13.3857 5.87272 13.2697C5.8765 13.1537 5.85738 13.0381 5.81646 12.9295C5.77554 12.8209 5.71362 12.7215 5.63424 12.6368L2.91207 9.72826Z" fill="black"/>
+                        </svg>
+                        <a th:href="@{/logout}">Logout</a>
+                    </div>
+                </div>
+            </div>
 
-    <div>
-        <form th:action="@{/update-profile}" th:object="${user}" method="post">
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" th:field="*{email}" readonly />
+            <div class="profile_tab" draggable="true">
+                <div id="profileTab" class="tabs">Profile</div>
+                <div id="settingsTab" class="tabs">Settings</div>
             </div>
-            <div>
-                <label for="firstname">First Name:</label>
-                <input type="text" id="firstname" th:field="*{firstName}" />
+
+            <div class="profile_information" id="profileContent">
+                <div class="profile_information__title">
+                    <h3>Profile information</h3>
+                    <p>Here is the recognized text from the image: <br> Hi, I’m Oleksandr, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).</p>
+                </div>
+                <div class="profile_information_description">
+                    <div class="profile_information_description__fio">
+                        <p>Full name:</p><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span>
+                    </div>
+                    <div class="profile_information_description__fio">
+                        <p>Mobile:</p><span>+380996820248</span>
+                    </div>
+                    <div class="profile_information_description__fio">
+                        <p>Email:</p><span th:text="${user.email}"></span>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label for="lastname">Last Name:</label>
-                <input type="text" id="lastname" th:field="*{lastName}" />
+
+            <div class="profile_edit" id="settingsContent">
+                <div class="profile_information_edit">
+                    <div class="row">
+                        <form th:action="@{/update-profile}" th:object="${user}" method="post">
+                            <fieldset>
+                                <div style="display: flex; flex-direction: row; gap: 50px; width: 100%;">
+                                    <div class="form-field">
+                                        <label for="firstname"></label><input th:field="*{firstName}" name="firstname" type="text" id="firstname" class="full-width" placeholder="Your Name" value="">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="lastname"></label><input th:field="*{lastName}" name="lastname" type="text" id="lastname" class="full-width" placeholder="Your Lat Name" value="">
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; flex-direction: row; gap: 50px; width: 100%;">
+                                    <div class="form-field">
+                                        <label for="email"></label><input name="email" th:field="*{email}" type="email" id="email" class="full-width" placeholder="Your Email" value="">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="phone"></label><input name="phone" type="tel" id="phone" class="full-width" placeholder="Your Phone" value="">
+                                    </div>
+                                </div>
+
+                                <div class="message form-field">
+                                    <label for="description"></label><textarea name="description" id="description" class="full-width" placeholder="Your Description" ></textarea>
+                                </div>
+
+                                <button type="submit" class="submit btn btn--primary full-width">Save</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div>
-                <button type="submit">Update Profile</button>
-            </div>
-        </form>
-    </div>
+        </div>
+
+    </section>
+
+
+    <!--        <div>-->
+    <!--            <form th:action="@{/update-profile}" th:object="${user}" method="post">-->
+    <!--                <div>-->
+    <!--                    <label for="email">Email:</label>-->
+    <!--                    <input type="email" id="email" th:field="*{email}" readonly />-->
+    <!--                </div>-->
+    <!--                <div>-->
+    <!--                    <label for="firstname">First Name:</label>-->
+    <!--                    <input type="text" id="firstname" th:field="*{firstName}" />-->
+    <!--                </div>-->
+    <!--                <div>-->
+    <!--                    <label for="lastname">Last Name:</label>-->
+    <!--                    <input type="text" id="lastname" th:field="*{lastName}" />-->
+    <!--                </div>-->
+    <!--                <div>-->
+    <!--                    <button type="submit">Update Profile</button>-->
+    <!--                </div>-->
+    <!--            </form>-->
+    <!--        </div>-->
 
     <footer class="s-footer">
         <div class="s-footer__main">
@@ -226,6 +306,32 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tabs');
+            const profileContent = document.getElementById('profileContent');
+            const settingsContent = document.getElementById('settingsContent');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    profileContent.classList.remove('active');
+                    settingsContent.classList.remove('active');
+
+                    this.classList.add('active');
+
+                    if (this.id === 'profileTab') {
+                        profileContent.classList.add('active');
+                    } else if (this.id === 'settingsTab') {
+                        settingsContent.classList.add('active');
+                    }
+                });
+            });
+
+            document.getElementById('profileTab').click();
+        });
+    </script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

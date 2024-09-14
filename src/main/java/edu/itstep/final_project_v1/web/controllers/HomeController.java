@@ -32,27 +32,17 @@ public class HomeController {
     private final AccountService accountService;
     private final CategoryService categoryService;
 
+    private static final int DEFAULT_PAGE_SIZE = 8;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
+
     @GetMapping("/")
     public String home(Model model, Principal principal) {
         List<Post> posts = postService.getAll();
         List<Category> categories = categoryService.getAll();
 
-        Account account = new Account();
-        model.addAttribute("account", account);
-        Map<Long, Long> likeCounts = posts.stream()
-                .collect(Collectors.toMap(Post::getId, post -> ratingService.getLikeCountByPostId(post.getId())));
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
-        for (Post post : posts) {
-            String formattedDate = post.getCreatedAt().format(formatter);
-            post.setFormattedDate(formattedDate);
-
-            Category postCategory = post.getCategory();
-            post.setCategory(postCategory);
-        }
-
-        model.addAttribute("posts", posts);
-        model.addAttribute("likeCounts", likeCounts);
+        model.addAttribute("account", new Account());
+        model.addAttribute("posts", formatPosts(posts));
+        model.addAttribute("likeCounts", getLikeCounts(posts));
         model.addAttribute("categories", categories);
 
         if (principal != null) {
@@ -68,28 +58,16 @@ public class HomeController {
     public String allPosts(Model model,
                            Principal principal,
                            @RequestParam(defaultValue = "0") int page,
-                           @RequestParam(defaultValue = "8") int size) {
+                           @RequestParam(defaultValue = "" + DEFAULT_PAGE_SIZE) int size) {
         StateMethod.populateModel(model, postService, categoryService);
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Post> postPage = postService.getAll(pageable);
         List<Category> categories = categoryService.getAll();
 
-        Account account = new Account();
-        model.addAttribute("account", account);
-
-        Map<Long, Long> likeCounts = postPage.getContent().stream()
-                .collect(Collectors.toMap(Post::getId, post -> ratingService.getLikeCountByPostId(post.getId())));
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
-
-        for (Post post : postPage.getContent()) {
-            String formattedDate = post.getCreatedAt().format(formatter);
-            post.setFormattedDate(formattedDate);
-        }
-
-        model.addAttribute("posts", postPage.getContent());
-        model.addAttribute("likeCounts", likeCounts);
+        model.addAttribute("account", new Account());
+        model.addAttribute("posts", formatPosts(postPage.getContent()));
+        model.addAttribute("likeCounts", getLikeCounts(postPage.getContent()));
         model.addAttribute("categories", categories);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", postPage.getTotalPages());
@@ -97,6 +75,70 @@ public class HomeController {
         addUserRatingsToModel(model, postPage.getContent(), principal);
 
         return "posts";
+    }
+
+    @GetMapping("/posts/by-category/{categoryId}")
+    public String getPostsByCategory(@PathVariable Long categoryId,
+                                     Model model,
+                                     Principal principal,
+                                     @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "" + DEFAULT_PAGE_SIZE) int size) {
+        StateMethod.populateModel(model, postService, categoryService);
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Post> postPage = postService.getPostsByBlog(categoryId, pageable);
+        List<Category> categories = categoryService.getAll();
+
+        model.addAttribute("posts", formatPosts(postPage.getContent()));
+        model.addAttribute("categories", categories);
+        model.addAttribute("selectedCategoryId", categoryId);
+        model.addAttribute("likeCounts", getLikeCounts(postPage.getContent()));
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", postPage.getTotalPages());
+
+        addUserRatingsToModel(model, postPage.getContent(), principal);
+
+        return "posts";
+    }
+
+    @GetMapping("/search")
+    public String searchPosts(@RequestParam("s") String title,
+                              @RequestParam(value = "categoryId", required = false) Long categoryId,
+                              Model model,
+                              Principal principal,
+                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "" + DEFAULT_PAGE_SIZE) int size) {
+        StateMethod.populateModel(model, postService, categoryService);
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Post> postPage = (categoryId != null)
+                ? postService.searchPostsByTitleAndCategoryWithPagination(title, categoryId, pageable)
+                : postService.searchPostsByTitleWithPagination(title, pageable);
+
+        List<Category> categories = categoryService.getAll();
+
+        model.addAttribute("posts", formatPosts(postPage.getContent()));
+        model.addAttribute("likeCounts", getLikeCounts(postPage.getContent()));
+        model.addAttribute("categories", categories);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", postPage.getTotalPages());
+        model.addAttribute("searchQuery", title);
+        model.addAttribute("selectedCategoryId", categoryId);
+
+        addUserRatingsToModel(model, postPage.getContent(), principal);
+
+        return "posts";
+    }
+
+    private List<Post> formatPosts(List<Post> posts) {
+        return posts.stream()
+                .peek(post -> post.setFormattedDate(post.getCreatedAt().format(DATE_FORMATTER)))
+                .collect(Collectors.toList());
+    }
+
+    private Map<Long, Long> getLikeCounts(List<Post> posts) {
+        return posts.stream()
+                .collect(Collectors.toMap(Post::getId, post -> ratingService.getLikeCountByPostId(post.getId())));
     }
 
     private void addUserRatingsToModel(Model model, List<Post> posts, Principal principal) {
@@ -111,39 +153,5 @@ public class HomeController {
         } else {
             model.addAttribute("userLiked", Collections.emptyMap());
         }
-    }
-
-    @GetMapping("/posts/by-category/{categoryId}")
-    public String getPostsByBlog(@PathVariable Long categoryId,
-                                 Model model,
-                                 Principal principal,
-                                 @RequestParam(defaultValue = "0") int page,
-                                 @RequestParam(defaultValue = "8") int size) {
-        StateMethod.populateModel(model, postService, categoryService);
-
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Post> postPage = postService.getPostsByBlog(categoryId, pageable);
-        List<Category> categories = categoryService.getAll();
-
-        Map<Long, Long> likeCounts = postPage.getContent().stream()
-                .collect(Collectors.toMap(Post::getId, post -> ratingService.getLikeCountByPostId(post.getId())));
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
-
-        for (Post post : postPage.getContent()) {
-            String formattedDate = post.getCreatedAt().format(formatter);
-            post.setFormattedDate(formattedDate);
-        }
-
-        model.addAttribute("posts", postPage.getContent());
-        model.addAttribute("categories", categories);
-        model.addAttribute("selectedCategoryId", categoryId);
-        model.addAttribute("likeCounts", likeCounts);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", postPage.getTotalPages());
-
-        addUserRatingsToModel(model, postPage.getContent(), principal);
-
-        return "posts";
     }
 }

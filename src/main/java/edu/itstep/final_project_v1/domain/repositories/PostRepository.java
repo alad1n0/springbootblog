@@ -31,5 +31,8 @@ public interface PostRepository extends JpaRepository<Post, Long>
 
     @Query("SELECT p FROM Post p WHERE p.id > :postId ORDER BY p.id ASC")
     List<Post> findNextPosts(@Param("postId") Long postId, Pageable pageable);
-}
 
+    Page<Post> findByTitleContainingIgnoreCase(String title, Pageable pageable);
+
+    Page<Post> findByTitleContainingAndCategoryId(String title, Long categoryId, Pageable pageable);
+}

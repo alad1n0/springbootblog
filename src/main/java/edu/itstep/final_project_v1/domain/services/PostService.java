@@ -93,4 +93,12 @@ public class PostService {
         List<Post> nextPosts = postRepository.findNextPosts(postId, pageable);
         return nextPosts.isEmpty() ? null : nextPosts.get(0);
     }
+
+    public Page<Post> searchPostsByTitleWithPagination(String title, Pageable pageable) {
+        return postRepository.findByTitleContainingIgnoreCase(title, pageable);
+    }
+
+    public Page<Post> searchPostsByTitleAndCategoryWithPagination(String title, Long categoryId, Pageable pageable) {
+        return postRepository.findByTitleContainingAndCategoryId(title, categoryId, pageable);
+    }
 }

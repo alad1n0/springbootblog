@@ -36,6 +36,7 @@ public class WebSecurityConfig {
                         auth.requestMatchers(antMatcher("/aboute")).permitAll();
                         auth.requestMatchers(antMatcher("/contact")).permitAll();
                         auth.requestMatchers(antMatcher("/search/**")).permitAll();
+                        auth.requestMatchers(antMatcher("/profile")).permitAll();
                         auth.requestMatchers(antMatcher("/admin/**")).hasAuthority("ROLE_ADMIN");
                         auth.anyRequest().authenticated();
                 })

@@ -3883,10 +3883,6 @@ ion-icon {
    transition: background 0.3s ease, backdrop-filter 0.3s ease;
 }
 
-/*.image-container:hover img {*/
-/*   filter: grayscale(200%);*/
-/*}*/
-
 .profile_tab {
    display: flex;
    padding: 0 36px;
